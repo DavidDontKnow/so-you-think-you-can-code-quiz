@@ -7,6 +7,9 @@ const time = document.querySelector("#time")
 let timeLeft = 300
 const questions = ["what stores key value pairs in js?", "what starts a countdown timer in JS?", "what tag is used to link js in html?"]
 const q1Answer = ["objects", "arrays", "variables", "elements"]
+const q2Answer = ["setTimer", "startInterval", "startTimer", "setInterval"]
+const q3Answer = ["link", "script", "meta", "input"]
+const answerChoices = [q1Answer, q2Answer, q3Answer]
 
 
 button.addEventListener("click", function () {
@@ -39,29 +42,52 @@ function startQuiz() {
     section.appendChild(div)
 
     var index = 0
-    para.innerText = questions[index]
-    for (
-        var i = 0; i < q1Answer.length; i++) {
-        var answerItem = document.createElement("li")
-        answerItem.innerText = q1Answer[i];
-        answerItem.setAttribute("id", i)
-        answerList.appendChild(answerItem);
-    }
-    var option1 = document.getElementById("0")
-    var option2 = document.getElementById("1")
-    var option3 = document.getElementById("2")
-    var option4 = document.getElementById("3")
+    questionGen(index)
 
-    console.log(option1, option2, option3, option4)
-    answerList.addEventListener("click", (e) => {
-        console.log(e.target)
-        if (e.target == option1) {
-            score = score + 100
-            console.log(score)
-        } else {
-            timeLeft = timeLeft - 30
+    function questionGen(index) {
+        para.innerText = questions[index]
+        var answers = answerChoices[index]
+        for (
+            var i = 0; i < 4; i++) {
+            var answerItem = document.createElement("li")
+            answerItem.innerText = answers[i];
+            answerItem.setAttribute("id", i)
+            answerList.appendChild(answerItem);
         }
-    })
 
 
+        var option1 = document.getElementById("0")
+        var option2 = document.getElementById("1")
+        var option3 = document.getElementById("2")
+        var option4 = document.getElementById("3")
+
+        function removeQuestion() {
+            answerList.removeChild(option1)
+            answerList.removeChild(option2)
+            answerList.removeChild(option3)
+            answerList.removeChild(option4)
+        }
+
+        answerList.addEventListener("click", (e) => {
+            console.log(e.target)
+            checkAnswer(e.target)
+
+            function checkAnswer() {
+                if (
+                    index == 0 && e.target == option1 ||
+                    index == 1 && e.target == option4 ||
+                    index == 2 && e.target == option2
+                )
+                    score = score + 100
+                console.log(score)
+                index++
+                removeQuestion()
+                questionGen(index)
+
+            }
+
+        })
+
+    }
 }
+
