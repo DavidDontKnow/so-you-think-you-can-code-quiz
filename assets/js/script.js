@@ -27,6 +27,23 @@ function startTimer() {
             clearInterval(timerInterval);
         }
     }, 1000);
+
+    function gameOver() {
+        div = document.querySelector("div");
+        ul = document.querySelector("ul");
+        div.removeChild(ul);
+        para = document.querySelector("p");
+        para.innerText = "Congratulations you finished!";
+        saveHS = document.createElement("button");
+        saveHS.innerText = "Save Highscore";
+        reset = document.createElement("button");
+        reset.innerText = "Restart";
+        div.appendChild(saveHS);
+        div.appendChild(reset);
+    } return timeLeft
+
+
+
 }
 
 function startQuiz() {
@@ -40,54 +57,135 @@ function startQuiz() {
     var answerList = document.createElement("ul")
     div.appendChild(answerList)
     section.appendChild(div)
+    for (var i = 0; i < 4; i++) {
+        var answerItem = document.createElement("li")
+        answerItem.innerText = "";
+        answerItem.setAttribute("id", i)
+        answerList.appendChild(answerItem)
+    }
+    questionGiver(index)
+    return div
+}
+var index = 0
 
-    var index = 0
-    questionGen(index)
 
-    function questionGen(index) {
+function questionGiver(index) {
+    div = document.querySelector("div")
+    para = div.querySelector("p")
+    if (index < 3) {
         para.innerText = questions[index]
-        var answers = answerChoices[index]
-        for (
-            var i = 0; i < 4; i++) {
-            var answerItem = document.createElement("li")
-            answerItem.innerText = answers[i];
-            answerItem.setAttribute("id", i)
-            answerList.appendChild(answerItem);
-        }
+        answerList = div.querySelector("ul")
+        answerItem0 = document.getElementById("0")
+        answerItem1 = document.getElementById("1")
+        answerItem2 = document.getElementById("2")
+        answerItem3 = document.getElementById("3")
 
+        answerItem0.innerText = answerChoices[index][0]
+        answerItem1.innerText = answerChoices[index][1]
+        answerItem2.innerText = answerChoices[index][2]
+        answerItem3.innerText = answerChoices[index][3]
 
-        var option1 = document.getElementById("0")
-        var option2 = document.getElementById("1")
-        var option3 = document.getElementById("2")
-        var option4 = document.getElementById("3")
-
-        function removeQuestion() {
-            answerList.removeChild(option1)
-            answerList.removeChild(option2)
-            answerList.removeChild(option3)
-            answerList.removeChild(option4)
-        }
-
-        answerList.addEventListener("click", (e) => {
-            console.log(e.target)
-            checkAnswer(e.target)
-
-            function checkAnswer() {
-                if (
-                    index == 0 && e.target == option1 ||
-                    index == 1 && e.target == option4 ||
-                    index == 2 && e.target == option2
-                )
-                    score = score + 100
-                console.log(score)
-                index++
-                removeQuestion()
-                questionGen(index)
-
-            }
-
-        })
-
+        checkAnswer()
+    } else {
+        gameOver()
+        timeLeft = 1
     }
 }
+
+function checkAnswer() {
+    var div = document.querySelector("div")
+    div.addEventListener("click", (e) => {
+        console.log(e.target)
+        if (
+            index == 0 && e.target == answerItem0 ||
+            index == 1 && e.target == answerItem3 ||
+            index == 2 && e.target == answerItem1
+        ) {
+            score = score + 100
+            console.log(score)
+            index++
+            questionGiver(index)
+        } else {
+            index++
+            timeDec()
+            questionGiver(index)
+
+        }
+    })
+}
+
+function gameOver() {
+    div = document.querySelector("div")
+    ul = document.querySelector("ul")
+    div.removeChild(ul)
+    para = document.querySelector("p")
+    para.innerText = "Congratulations you finished!"
+    saveHS = document.createElement("button")
+    saveHS.innerText = "Save Highscore"
+    reset = document.createElement("button")
+    reset.innerText = "Restart"
+    div.appendChild(saveHS)
+    div.appendChild(reset)
+
+
+}
+
+function timeDec() {
+    if (timeLeft > 30) {
+        timeLeft = timeLeft - 50
+    } else {
+        gameOver()
+        timeLeft = 1
+    }
+}
+
+//     var index = 0
+//     questionGen(index)
+
+//     function questionGen(index) {
+//         para.innerText = questions[index]
+//         var answers = answerChoices[index]
+//         for (
+//             var i = 0; i < 4; i++) {
+//             var answerItem = document.createElement("li")
+//             answerItem.innerText = answers[i];
+//             answerItem.setAttribute("id", i)
+//             answerList.appendChild(answerItem);
+//         }
+
+
+//         var option1 = document.getElementById("0")
+//         var option2 = document.getElementById("1")
+//         var option3 = document.getElementById("2")
+//         var option4 = document.getElementById("3")
+
+//         function removeQuestion() {
+//             answerList.removeChild(option1)
+//             answerList.removeChild(option2)
+//             answerList.removeChild(option3)
+//             answerList.removeChild(option4)
+//         }
+
+//         answerList.addEventListener("click", (e) => {
+//             console.log(e.target)
+//             checkAnswer(e.target)
+
+//             function checkAnswer() {
+//                 if (
+//                     index == 0 && e.target == option1 ||
+//                     index == 1 && e.target == option4 ||
+//                     index == 2 && e.target == option2
+//                 )
+//                     score = score + 100
+//                 console.log(score)
+//                 index++
+//                 removeQuestion()
+//                 questionGen(index)
+
+//             }
+
+//         })
+
+//     }
+// }
 
