@@ -25,6 +25,7 @@ function startTimer() {
         if (timeLeft === 0) {
             // Stops execution of action at set interval
             clearInterval(timerInterval);
+            gameOver()
         }
     }, 1000);
 
@@ -40,7 +41,7 @@ function startTimer() {
         reset.innerText = "Restart";
         div.appendChild(saveHS);
         div.appendChild(reset);
-    } return timeLeft
+    }
 
 
 
@@ -111,7 +112,7 @@ function checkAnswer() {
             questionGiver(index)
 
         }
-    })
+    }, { once: true })
 }
 
 function gameOver() {
@@ -132,60 +133,11 @@ function gameOver() {
 
 function timeDec() {
     if (timeLeft > 30) {
-        timeLeft = timeLeft - 50
+        timeLeft = timeLeft - 30
     } else {
         gameOver()
         timeLeft = 1
     }
 }
 
-//     var index = 0
-//     questionGen(index)
-
-//     function questionGen(index) {
-//         para.innerText = questions[index]
-//         var answers = answerChoices[index]
-//         for (
-//             var i = 0; i < 4; i++) {
-//             var answerItem = document.createElement("li")
-//             answerItem.innerText = answers[i];
-//             answerItem.setAttribute("id", i)
-//             answerList.appendChild(answerItem);
-//         }
-
-
-//         var option1 = document.getElementById("0")
-//         var option2 = document.getElementById("1")
-//         var option3 = document.getElementById("2")
-//         var option4 = document.getElementById("3")
-
-//         function removeQuestion() {
-//             answerList.removeChild(option1)
-//             answerList.removeChild(option2)
-//             answerList.removeChild(option3)
-//             answerList.removeChild(option4)
-//         }
-
-//         answerList.addEventListener("click", (e) => {
-//             console.log(e.target)
-//             checkAnswer(e.target)
-
-//             function checkAnswer() {
-//                 if (
-//                     index == 0 && e.target == option1 ||
-//                     index == 1 && e.target == option4 ||
-//                     index == 2 && e.target == option2
-//                 )
-//                     score = score + 100
-//                 console.log(score)
-//                 index++
-//                 removeQuestion()
-//                 questionGen(index)
-
-//             }
-
-//         })
-
-//     }
-// }
 
