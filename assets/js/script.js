@@ -1,3 +1,19 @@
+// Look honestly I forgot this even existed and rushed to try to finish it. 
+// Did that work? 
+// ...no. 
+// Did I learn that I really need stay on top of this stuff? 
+// Thats a hard yes. 
+// Will this ever happen again?
+// probably
+// I will finish this though and resubmit
+// sorry for wasting your time 
+// :(
+
+
+
+
+
+
 const section = document.querySelector("section")
 const h1 = document.querySelector("h1")
 const pTag = document.querySelector("p")
@@ -10,6 +26,7 @@ const q1Answer = ["objects", "arrays", "variables", "elements"]
 const q2Answer = ["setTimer", "startInterval", "startTimer", "setInterval"]
 const q3Answer = ["link", "script", "meta", "input"]
 const answerChoices = [q1Answer, q2Answer, q3Answer]
+var index = 0
 
 
 button.addEventListener("click", function () {
@@ -27,25 +44,56 @@ function startTimer() {
             clearInterval(timerInterval);
             gameOver()
         }
+        if (timeLeft == -1) {
+            clearInterval(timerInterval)
+        }
     }, 1000);
-
-    function gameOver() {
-        div = document.querySelector("div");
-        ul = document.querySelector("ul");
-        div.removeChild(ul);
-        para = document.querySelector("p");
-        para.innerText = "Congratulations you finished!";
-        saveHS = document.createElement("button");
-        saveHS.innerText = "Save Highscore";
-        reset = document.createElement("button");
-        reset.innerText = "Restart";
-        div.appendChild(saveHS);
-        div.appendChild(reset);
-    }
-
-
-
 }
+
+function gameOver() {
+    let div = document.querySelector("div");
+    let ul = document.querySelector("ul");
+    div.removeChild(ul);
+    let para = document.querySelector("p");
+    para.innerText = "Congratulations you finished!";
+    saveHS = document.createElement("button");
+    saveHS.setAttribute("id", "hs");
+    saveHS.innerText = "Save Highscore";
+    reset = document.createElement("button");
+    reset.setAttribute("id", "reset")
+    reset.innerText = "Restart";
+    div.appendChild(saveHS);
+    div.appendChild(reset);
+    HighscoreOrReset()
+}
+
+function HighscoreOrReset() {
+    let div = document.querySelector("div");
+    let hs = document.getElementById("hs")
+    let reset = document.getElementById("reset")
+    div.addEventListener("click", (e) => {
+        if (e.target == hs) {
+            highscoreSave()
+        } if (e.target == reset) {
+            console.log("reset")
+        }
+    })
+}
+
+function highscoreSave() {
+    let div = document.querySelector("div");
+    let p = document.querySelector("p")
+    p.innerText = "Please enter your initials"
+    let hs = document.getElementById("hs")
+    let reset = document.getElementById("reset")
+    hs.innerText = "save"
+    hs.removeAttribute("id")
+    hs.setAttribute("id", "save-input")
+    let form = document.createElement("input");
+    div.appendChild(form)
+}
+
+
 
 function startQuiz() {
     section.removeChild(h1)
@@ -67,7 +115,7 @@ function startQuiz() {
     questionGiver(index)
     return div
 }
-var index = 0
+
 
 
 function questionGiver(index) {
@@ -89,7 +137,7 @@ function questionGiver(index) {
         checkAnswer()
     } else {
         gameOver()
-        timeLeft = 1
+        timeLeft = 0
     }
 }
 
@@ -115,28 +163,13 @@ function checkAnswer() {
     }, { once: true })
 }
 
-function gameOver() {
-    div = document.querySelector("div")
-    ul = document.querySelector("ul")
-    div.removeChild(ul)
-    para = document.querySelector("p")
-    para.innerText = "Congratulations you finished!"
-    saveHS = document.createElement("button")
-    saveHS.innerText = "Save Highscore"
-    reset = document.createElement("button")
-    reset.innerText = "Restart"
-    div.appendChild(saveHS)
-    div.appendChild(reset)
 
-
-}
 
 function timeDec() {
     if (timeLeft > 30) {
         timeLeft = timeLeft - 30
     } else {
-        gameOver()
-        timeLeft = 1
+        timeLeft = 2
     }
 }
 
