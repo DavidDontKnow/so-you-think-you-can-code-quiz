@@ -1,10 +1,7 @@
 :root {
-	--gray: #292f33;
-	--white: #f5f5f1;
-	--red: #e50914;
-	--brownish: #222020;
-	--redHighlight: #fa7980;
-
+	--var-black: #000000;
+	--var-red: #db0000;
+	--var-gray: #f2f2f2;
 }
 
 * {
@@ -14,37 +11,111 @@
 }
 
 body {
-	background-color: var(--gray);
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: 'Roboto', sans-serif;
+	background-color: var(--var-black);
+	color: var(--var-gray);
+	font-size: 16px;
 }
 
-header {
+nav {
+	background-color: var(--var-red);
+	color: var(--var-gray);
 	display: flex;
 	justify-content: space-between;
-	padding: .5rem;
-	margin: 1rem 2rem;
+	align-items: center;
+	padding: 0 20px;
+}
+
+nav>ul {
+	display: flex;
+	padding: .5rem 0;
+}
+
+li {
+	margin: 0 10px;
 }
 
 p {
-	margin-top: .5rem;
+	padding: 1rem .5rem;
+	text-align: center;
+	text-transform: capitalize;
+	font-weight: bold;
 }
 
-section {
-	margin: 3rem;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	text-align: center;
+	padding: 1rem 0;
+}
+
+a {
+	text-decoration: none;
+	color: var(--var-gray);
 }
 
 button {
-	margin-top: 1rem;
-	background-color: var(--red);
-	text-transform: uppercase;
-	padding: .25rem;
-	font-weight: bold;
-	border-radius: .25rem;
+	background-color: var(--var-red);
+	color: var(--var-gray);
+	border: 1px solid var(--var-gray);
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+
 }
 
 button:hover {
-	transition: .25s;
-	background-color: var(--redHighlight);
-	cursor: pointer;
+	background-color: var(--var-gray);
+	color: var(--var-red);
+	transition: 200ms;
+}
+
+
+input {
+	background-color: var(--var-gray);
+	color: var(--var-red);
+	border: 1px solid var(--var-red);
+	padding: 10px 20px;
+	border-radius: 5px;
+}
+
+#endGame,
+#question,
+#startPage,
+#highScores {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#endGame>ul {
+	margin-top: 20px;
+}
+
+li {
+	list-style: none;
+	margin-top: 10px;
+}
+
+#endGame {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#endGame>button {
+	margin-top: .25rem;
+}
+
+#highScores>button {
+	margin: .25rem .25rem;
+}
+
+#question>button {
+	margin: .25rem .25rem;
 }
